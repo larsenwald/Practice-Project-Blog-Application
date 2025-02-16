@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Blog Application</h1>
+    <main>
+      <% if (posts.length === 0){ %>
+      <h2>No posts yet</h2>
+      <p>Press the "New Post +" button to create one.</p>
+      <%}else{%> <% for (let i = 0; i < posts.length; i++){ %>
+      <div class="post">
+        <div class="head">
+          <h3><%= posts[i].title %></h3>
+          <p><%= posts[i].description %></p>
+        </div>
+        <div class="foot">
+          <form action="read" method="get">
+            <button type="submit" name="p<%= i %>">read this post</button>
+          </form>
+          <button class="edit-post-button" id="b<%= i %>">
+            edit this post
+          </button>
+          <form
+            class="hide new-post-form"
+            id="form<%= i %>"
+            action="edit"
+            method="post"
+          >
+            <h2>Edit Post</h2>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              required
+              maxlength="50"
+              value="<%= posts[i].title %>"
+            />
+            <input
+              maxlength="150"
+              type="text"
+              name="description"
+              placeholder="Description"
+              required
+              value="<%= posts[i].description %>"
+            />
+            <textarea
+              required
+              placeholder="Write your article here..."
+              name="content"
+            >
+<%= posts[i].content %></textarea
+            >
+            <button type="submit" name="p<%= i %>">save</button>
+            <div class="cancel-edit-post">cancel</div>
+          </form>
+          <form action="deleted" method="get">
+            <button type="submit" name="p<%= i %>">delete this post</button>
+          </form>
+        </div>
+      </div>
+      <%}%> <%}%>
+      <button id="new-post-button">New Post +</button>
+    </main>
+    <form
+      class="hide new-post-form"
+      action="post-added"
+      method="post"
+      id="new-post-form"
+    >
+      <h2>New Post</h2>
+      <input
+        type="text"
+        name="title"
+        placeholder="Title"
+        required
+        maxlength="50"
+      />
+      <input
+        maxlength="150"
+        type="text"
+        name="description"
+        placeholder="Description"
+        required
+      />
+      <textarea
+        required
+        placeholder="Write your article here..."
+        name="content"
+      ></textarea>
+      <button type="submit">create post</button>
+      <button id="cancel-new-post">cancel</button>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="javascript/index.js"></script>
+  </body>
+</html>
